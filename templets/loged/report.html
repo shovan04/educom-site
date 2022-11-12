@@ -1,0 +1,23 @@
+{% extends '../loged/logbase.html' %}
+{% block title %}Report {% endblock %}
+{% block body %}
+
+<body>
+    <div class="container"><br>
+        {% if status == True %}
+        <div class="alert alert-success" role="alert">
+            <h2>Report send for user {{uname}} </h2>
+            <!-- {{request.path}} -->
+        </div>
+            <a href="{% url 'log_home' %}" class="btn btn-outline-primary">Back Home</a>
+        {% else %}
+        <div class="container">
+            <h2>Report Form</h2>
+            <!-- {{request.path}} -->
+        </div>
+        {% endif %}
+
+
+    </div>
+</body>
+{% endblock %}

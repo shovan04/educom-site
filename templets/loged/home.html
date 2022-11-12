@@ -1,0 +1,11 @@
+{% extends '../loged/logbase.html' %}
+{% block title %}Home {% endblock %}
+
+{% block body %}
+{% for user in data %}
+<body>
+    <h1>Wellcome {{user.name}} </h1>
+    <!-- <h2>{{request.path}}</h2> -->
+</body>
+{% endfor %}
+{% endblock %}

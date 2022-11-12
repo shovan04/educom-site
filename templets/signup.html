@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %} SignUp {% endblock title %}
+{% block body %}
+
+<body>
+    <div class="container"><br>
+        <h2 style="text-align: center;">SignUP Page</h2>
+        <div class="form row g-3"><br>
+            <form autocomplete="off">
+                {% csrf_token %}
+                <div class="mb-3 col-auto">
+                    <label for="name" class="form-label">Enter Name</label>
+                    <input type="text" autocomplete="off" placeholder="Jon Doe" class="form-control" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="uname" class="form-label">UserName</label>
+                    <input type="text" autocomplete="off" class="form-control col-8" placeholder="jondoe01"
+                        name="uname">
+                </div>
+                <div class="mb-3 col-auto">
+                    <label for="email" class="form-label">Enter Email</label>
+                    <input type="email" autocomplete="off" placeholder="jondoe@mail.com" class="form-control"
+                        name="email">
+                </div>
+                <div class="mb-3 col-auto">
+                    <label for="phone" class="form-label">Enter Phone</label>
+                    <input type="tel" autocomplete="off" placeholder="+91 9991237648" class="form-control" name="phone">
+                </div>
+                <div class="mb-3 col-auto">
+                    <label for="pass" class="form-label">Password</label>
+                    <input type="password" placeholder="***********" autocomplete="off" class="form-control"
+                        name="pass">
+                </div>
+                <div class="mb-3 col-auto">
+                    <label for="cpass" class="form-label">Confirm Password</label>
+                    <input type="password" autocomplete="off" placeholder="***********" class="form-control"
+                        name="cpass">
+                </div>
+                <button name="sub_btn" type="button" class="btn btn-outline-primary">Submit</button>
+            </form>
+        </div>
+        <div id="msg" class="mt-2">
+        </div>
+    </div>
+</body>
+{% endblock %}
+{% block script %}
+<script>
+    btnclk('button[name=sub_btn]', () => {
+        Ajax({
+            url: "{% url 'signup_sub' %}",
+            method: "POST",
+            data: {
+                csrfmiddlewaretoken: getVal('input[name=csrfmiddlewaretoken]'),
+                name: getVal('input[name=name]'),
+                email: getVal('input[name=email]'),
+                uname: getVal('input[name=uname]'),
+                phone: getVal('input[name=phone]'),
+                pass: getVal('input[name=pass]'),
+                cpass: getVal('input[name=cpass]'),
+            },
+            success: (respons) => {
+                if (respons === "<div class=\"alert alert-success\" role=\"alert\">Successfully Created. Redirect to login page in 5 second.</div>") {
+                    setTimeout(() => {
+                        window.location.href = "{% url 'login' %}"
+                    }, 5000)
+                    setHtml("#msg", respons);
+                } else {
+                    setHtml("#msg", respons)
+                }
+            },
+            error: (respons) => {
+                console.log(respons)
+            }
+        })
+    })
+</script>
+{% endblock %}

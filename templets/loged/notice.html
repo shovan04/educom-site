@@ -1,0 +1,21 @@
+{% extends '../loged/logbase.html' %}
+{% block title %}Notic {% endblock %}
+{% block body %}
+<style>p{color: black;}</style>
+<body>
+    <div class="blogs container">
+        {% for not in notic %}
+        <div class="alert alert-info mt-2" role="alert">
+            <p class="title"><strong>Title : </strong>{{not.title}}</p>
+            <p class="short_dec overflow-auto"><strong>Description : </strong>{{not.desc}}</p>
+            <p><strong>Time : </strong>{{not.date_time}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+{% endblock %}
+{% block script %}
+<script>
+</script>
+{% endblock %}
