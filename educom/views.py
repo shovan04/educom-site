@@ -57,7 +57,7 @@ def login_sub(request):
         elif uname == "" and pasw == "":
             return HttpResponse('<div class="alert alert-danger" role="alert">Please Fill all the Fileds.</div>')
     else:
-        return HttpResponse('<div class="alert alert-danger" role="alert">Try again later.</div>')
+        return redirect('home')
 
 
 def signup_sub(request):
@@ -99,6 +99,8 @@ def signup_sub(request):
         else:
             msg = '<div class="alert alert-danger" role="alert">Please Fill all the Fields.</div>'
             return HttpResponse(msg)
+    else:
+        return redirect('home')
 
 
 def test(request):
@@ -159,4 +161,3 @@ def atdanc(request):
                 return redirect('log_home')
     except:
         return redirect('home')
-
