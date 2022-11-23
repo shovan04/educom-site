@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from datetime import datetime as date
 from notice.models import *
-from user.models import User
+from user.models import Student
 
 
 def home(request):
@@ -44,11 +44,11 @@ def login_sub(request):
         uname = request.POST['uname']
         pasw = request.POST['pass']
         if uname != "" and pasw != "":
-            user = User.objects.filter(username=uname)
-            if user.count() > 0:
-                for i in user:
+            Student = Student.objects.filter(Studentname=uname)
+            if Student.count() > 0:
+                for i in Student:
                     if (i.pasw == pasw):
-                        request.session['log_st'] = i.username
+                        request.session['log_st'] = i.Studentname
                         return HttpResponse(1)
                     elif (i.pasw != pasw):
                         return HttpResponse('<div class="alert alert-danger" role="alert">Password not Match.</div>')
@@ -76,19 +76,19 @@ def signup_sub(request):
             msg_email = ''
             msg = ''
             if pasw == cpasw:
-                if User.objects.filter(email=email).count() > 0:
+                if Student.objects.filter(email=email).count() > 0:
                     msg_email = '<div class="alert alert-danger" role="alert">Email alrady exits.</div>'
                     return HttpResponse(msg_email)
-                if User.objects.filter(username=uname).count() > 0:
-                    msg_uname = '<div class="alert alert-danger" role="alert">UserName alrady taken.</div>'
+                if Student.objects.filter(Studentname=uname).count() > 0:
+                    msg_uname = '<div class="alert alert-danger" role="alert">StudentName alrady taken.</div>'
                     return HttpResponse(msg_uname)
-                if User.objects.filter(phone=phone).count() > 0:
+                if Student.objects.filter(phone=phone).count() > 0:
                     msg_phone = '<div class="alert alert-danger" role="alert">Phone no alrady exits.</div>'
                     return HttpResponse(msg_phone)
                 else:
-                    user = User(name=name, email=email,
-                                username=uname, pasw=pasw, phone=phone)
-                    user.save()
+                    Student = Student(name=name, email=email,
+                                Studentname=uname, pasw=pasw, phone=phone)
+                    Student.save()
                     msg_suc = '<div class="alert alert-success" role="alert">Successfully Created. Redirect to login page in 5 second.</div>'
                     return HttpResponse(msg_suc)
 
@@ -104,15 +104,15 @@ def signup_sub(request):
 
 
 def test(request):
-    data = User.objects.filter(username='shovan04').count() == 1
+    data = Student.objects.filter(Studentname='shovan04').count() == 1
     return render(request, 'test.html', {'data': data})
 
 
 def log_home(request):
     try:
         if request.session['log_st'] != "":
-            if User.objects.filter(username=request.session['log_st']).count() > 0:
-                data = User.objects.filter(username=request.session['log_st'])
+            if Student.objects.filter(Studentname=request.session['log_st']).count() > 0:
+                data = Student.objects.filter(Studentname=request.session['log_st'])
                 request.session['date'] = date.today().strftime("%A")
                 return render(request, 'loged/home.html', {'data': data})
             else:
@@ -125,7 +125,7 @@ def log_home(request):
 def lgout(request):
     try:
         if request.session['log_st'] != "":
-            if User.objects.filter(username=request.session['log_st']).count() > 0:
+            if Student.objects.filter(Studentname=request.session['log_st']).count() > 0:
                 del request.session['log_st']
                 return redirect('home')
     except:
@@ -133,10 +133,10 @@ def lgout(request):
 
 
 def user(request):
-    data = User.objects.all()
+    data = Student.objects.all()
     try:
         if (request.session['log_st'] != ''):
-            return render(request, 'loged/user.html', {'data': data})
+            return render(request, 'loged/Student.html', {'data': data})
     except:
         return redirect('home')
 
@@ -144,7 +144,7 @@ def user(request):
 def report(request, uname=""):
     try:
         if (request.session['log_st'] != ''):
-            if User.objects.filter(username=uname).count() == 1:
+            if Student.objects.filter(Studentname=uname).count() == 1:
                 return render(request, 'loged/report.html', {'status': True, 'uname': uname})
             else:
                 return render(request, 'loged/report.html')
