@@ -1,21 +1,15 @@
 from django.db import models
-from educom.password import secPass
 # Create your models here.
 
 class Student(models.Model):
     name = models.CharField(max_length=50)
     email = models.CharField(max_length=150, unique=True)
     username = models.CharField(max_length=50, unique=True)
-    pasw = models.CharField(max_length=40000)
+    pasw = models.TextField()
     phone = models.CharField(max_length=50, unique=True)
-
-    def save(self, *args, **kwargs):
-        self.pasw = secPass(self.pasw)
-        super(Student, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
-
 
 class UserRole(models.Model):
     
