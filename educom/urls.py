@@ -18,4 +18,7 @@ urlpatterns = [
     path('report/',views.report,name='report'),
     path('report/<uname>',views.report,name='report'),
     path('atdanc/',views.atdanc,name='atdanc'),
+    path('forgot-pass/',views.forgotpass,name='forgot-pass'),
+    path('forgot-pass/<uname>/',views.forgotpass,name='forgot-pass'),
+    path('forgot-pass/<uname>/<seckey>',views.forgotpass,name='forgot-pass'),
 ]

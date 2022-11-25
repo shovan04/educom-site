@@ -1,3 +1,4 @@
+import random
 encPass = (
     ('a', '@'),
     ('A', '@'),
@@ -26,3 +27,23 @@ def secPass(password):
     for a, b in encPass:
         password = password.replace(a, b)
     return strPass(password)
+
+
+def genSecKey(leng=20):
+    word = "abcdefghijklmnopqrstuvwxyz"
+    WORDe = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    num = 1234567890
+    speChar = "!@#$%^&*()/|{}[]=-_:"
+    key = ""
+
+    for i in range(leng):
+        key += random.choice(word)
+        key += random.choice(WORDe)+str(i)
+        key += random.choice(str(num))
+        key += random.choice(speChar)+str(i)
+
+    return key
+
+
+# if __name__ == "__main__":
+#     print(genSecKey())

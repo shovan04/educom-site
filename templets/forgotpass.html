@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %} Forgot Password {% endblock title %}
+{% block body %}
+
+<body>
+    <div class="container p-3">
+        <!-- <h1>{{typ}}</h1> -->
+        {% if typ == "new" %}
+        <div class="new">
+            <form>
+                <div class="mb-3">
+                    <label for="uname" class="form-label">UserName</label>
+                    <input type="text" disabled value="{{uname}}" class="form-control" id="uname">
+                </div>
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="pass">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {% elif typ == "old" %}
+        <div class="old">
+            <form>
+                <div class="mb-3">
+                    <label for="uname" class="form-label">UserName</label>
+                    <input type="text" disabled value="{{uname}}" class="form-control" id="uname">
+                </div>
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="pass">
+                </div>
+                <div class="mb-3">
+                    <label for="cpass" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="cpass">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="defult">
+            <form>
+                <div class="mb-3">
+                    <label for="uname" class="form-label">UserName</label>
+                    <input type="text" class="form-control" id="uname">
+                </div>
+                <div class="mb-3">
+                    <label for="pass" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="pass">
+                </div>
+                <div class="mb-3">
+                    <label for="cpass" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="cpass">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</body>
+{% endblock %}
+{% block script %}
+<script>
+    // btnclk('h1', () => { alert('Startr Js Work!') })
+</script>
+{% endblock %}

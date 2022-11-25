@@ -4,6 +4,7 @@ from datetime import datetime as date
 from notice.models import *
 from user.models import Student
 from .password import *
+from django.core.mail import *
 
 
 def home(request):
@@ -107,8 +108,13 @@ def signup_sub(request):
 
 
 def test(request):
-    data = Student.objects.filter(username='shovan04').count() == 1
-    return render(request, 'test.html', {'data': data})
+
+    msg = EmailMultiAlternatives('Test Subject', '<h2>Test message form django<u> mail</u></h2>',
+                                 'educom0075@gmail.com', ['shovanm50@gmail.com'],)
+    msg.content_subtype = "html"
+    msg.send()
+
+    return render(request, 'test.html')
 
 
 def log_home(request):
@@ -165,3 +171,20 @@ def atdanc(request):
                 return redirect('log_home')
     except:
         return redirect('home')
+
+
+def forgotpass(request, uname="", seckey=""):
+    if uname != "":
+        if seckey != "":
+            user = Student.objects.filter(username=uname)
+            if user.count() == 1:
+                for usr in user:
+                    secKey = usr.SecKey
+                if secKey == secKey:
+                    return render(request, 'forgotpass.html', {'typ': 'new', 'uname': uname})
+            else:
+                return HttpResponse('<h1>User not found! .')
+        else:
+            return render(request, 'forgotpass.html', {'typ': 'old', 'uname': uname})
+    else:
+        return render(request, 'forgotpass.html')
