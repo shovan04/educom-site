@@ -59,6 +59,7 @@
                     <label for="cpass" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="cpass">
                 </div>
+                <div class="msg p-3" id="msg"></div>
                 <button type="button" id="sub" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -79,6 +80,7 @@
                 cpass: getVal('input[id=cpass]'),
             },
             success: (respons) => {
+                setHtml('#msg',respons)
                 console.log(respons)
             },
             error: (respons) => {
