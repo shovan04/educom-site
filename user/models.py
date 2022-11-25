@@ -14,30 +14,7 @@ class Student(models.Model):
 
     def save(self, *args, **kwargs):
         secKey = genSecKey(20)
-        msg = f'''<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
-            <div style="margin:50px auto;width:70%;padding:20px 0">
-              <div style="border-bottom:1px solid #eee">
-                <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">EduCom</a>
-              </div>
-              <p style="font-size:1.1em">Hi,</p>
-              <p><b>{self.name}</b>&nbsp;&nbsp;Your username is</p>
-              <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">{self.username}</h2><br>
-              <h2>Create Password <a href="http://127.0.0.1:8000/forgot-pass/{self.username}/{secKey}">click here</a></h2><br>
-              <p style="font-size:0.9em;">Regards,<br />EduCom</p>
-              <hr style="border:none;border-top:1px solid #eee" />
-              <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-                <p>EduCom</p>
-                <p>Teacher - Samir Das.</p>
-                <p>Location - Purnanagar</p>
-              </div>
-            </div>
-          </div>'''
-        mail = EmailMultiAlternatives(
-            'Account Confirmation', msg, 'educom0075@gmail.com', ['shovanm50@gmail.com', f'{self.email}'],)
-        mail.content_subtype = "html"
-        mail.send()
         self.SecKey = secKey
-
         super(Student, self).save(*args, **kwargs)
 
     def __str__(self):

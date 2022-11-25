@@ -33,14 +33,14 @@ def genSecKey(leng=20):
     word = "abcdefghijklmnopqrstuvwxyz"
     WORDe = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     num = 1234567890
-    speChar = "!@#$%^&*()|{}[]=-_:"
+    speChar = "@|%^$&"
     key = ""
 
     for i in range(leng):
         key += random.choice(word)
-        key += random.choice(WORDe)+str(i)
+        key += random.choice(WORDe)
         key += random.choice(str(num))
-        key += random.choice(speChar)+str(i)
+        key += random.choice(speChar)
 
     return key
 

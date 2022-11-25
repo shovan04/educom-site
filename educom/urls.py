@@ -20,6 +20,7 @@ urlpatterns = [
     path('atdanc/',views.atdanc,name='atdanc'),
     path('forgot-pass/',views.forgotpass,name='forgot-pass'),
     path('forgot-pass/<uname>/',views.forgotpass,name='forgot-pass'),
-    path('forgot-pass/<uname>/<seckey>',views.forgotpass,name='forgot-pass'),
+    path('forgot-pass/<uname>/<key>',views.forgotpass,name='forgot-pass'),
     path('cng_pass',views.cng_pass,name='cng_pass'),
+    path('send-mail/<uname>/<key>/',views.send_mail,name='send-mail'),
 ]

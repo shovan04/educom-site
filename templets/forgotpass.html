@@ -7,6 +7,7 @@
         <!-- <h1>{{typ}}</h1> -->
         {% if typ == "new" %}
         <div class="new">
+            {% if getKey == key %}
             <form>
                 {% csrf_token %}
                 <div class="mb-3">
@@ -21,8 +22,12 @@
                     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="cpass">
                 </div>
+                <div class="msg p-3" id="msg"></div>
                 <button type="button" id="sub" class="btn btn-primary">Submit</button>
             </form>
+            {% else %}
+            <h1>Token Error.</h1>
+            {% endif %}
         </div>
         {% elif typ == "old" %}
         <div class="old">
@@ -40,6 +45,7 @@
                     <label for="cpass" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="cpass">
                 </div>
+                <div class="msg p-3" id="msg"></div>
                 <button type="button" id="sub" class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -69,7 +75,7 @@
 {% endblock %}
 {% block script %}
 <script>
-    btnclk('#sub', () => { 
+    btnclk('#sub', () => {
         Ajax({
             url: "{% url 'cng_pass' %}",
             method: "POST",
@@ -80,13 +86,19 @@
                 cpass: getVal('input[id=cpass]'),
             },
             success: (respons) => {
-                setHtml('#msg',respons)
-                console.log(respons)
+                if (respons === "<div class=\"alert alert-success\" role=\"alert\">Success Redirect to login page in 5 second.</div>") {
+                    setTimeout(() => {
+                        window.location.href = "{% url 'login' %}"
+                    }, 5000)
+                    setHtml("#msg", respons);
+                } else {
+                    setHtml("#msg", respons)
+                }
             },
             error: (respons) => {
                 console.log(respons)
             }
         })
-     })
+    })
 </script>
 {% endblock %}
