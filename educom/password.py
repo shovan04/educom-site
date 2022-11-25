@@ -33,7 +33,7 @@ def genSecKey(leng=20):
     word = "abcdefghijklmnopqrstuvwxyz"
     WORDe = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     num = 1234567890
-    speChar = "!@#$%^&*()/|{}[]=-_:"
+    speChar = "!@#$%^&*()|{}[]=-_:"
     key = ""
 
     for i in range(leng):

@@ -179,12 +179,36 @@ def forgotpass(request, uname="", seckey=""):
             user = Student.objects.filter(username=uname)
             if user.count() == 1:
                 for usr in user:
-                    secKey = usr.SecKey
-                if secKey == secKey:
+                    get_secKey = usr.SecKey
+                if get_secKey == seckey:
                     return render(request, 'forgotpass.html', {'typ': 'new', 'uname': uname})
+                else:
+                    msg_suc = '<div class="alert alert-danger" role="alert">Token Error</div><br><br><a href="http://127.0.0.1:8000" class="btn btn-outline-primary" >Back to home</a>'
+                    return HttpResponse(msg_suc)
             else:
-                return HttpResponse('<h1>User not found! .')
+                msg_suc = '<div class="alert alert-danger" role="alert">User not found! .</div><br><br><a href="http://127.0.0.1:8000" class="btn btn-outline-primary" >Back to home</a>'
+                return HttpResponse(msg_suc)
         else:
             return render(request, 'forgotpass.html', {'typ': 'old', 'uname': uname})
     else:
         return render(request, 'forgotpass.html')
+
+
+def cng_pass(request):
+    if request.method == "POST":
+        uname = request.POST['uname']
+        pasw = request.POST['pass']
+        cpasw = request.POST['cpass']
+
+        user = Student.objects.get(username=uname)
+        if pasw == cpasw:
+            user.pasw = secPass(pasw)
+            user.SecKey = "1"
+            user.save()
+            msg_suc = '<div class="alert alert-success" role="alert">Success. Redirect to login page in 5 second.</div>'
+            return HttpResponse(msg_suc)
+        else:
+            msg_suc = '<div class="alert alert-success" role="alert">Password & Confirm Password not match.</div>'
+            return HttpResponse(msg_suc)
+    else:
+        return redirect('forgot-pass')

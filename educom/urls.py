@@ -21,4 +21,5 @@ urlpatterns = [
     path('forgot-pass/',views.forgotpass,name='forgot-pass'),
     path('forgot-pass/<uname>/',views.forgotpass,name='forgot-pass'),
     path('forgot-pass/<uname>/<seckey>',views.forgotpass,name='forgot-pass'),
+    path('cng_pass',views.cng_pass,name='cng_pass'),
 ]
